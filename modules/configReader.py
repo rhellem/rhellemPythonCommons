@@ -11,7 +11,7 @@ class ConfigReader:
         """
         self.config_path = config_path
         self.config_data = self._load_config()
-        self._mask_passwords()  # Automatically mask passwords on initialization
+        
 
     def _load_config(self):
         """
