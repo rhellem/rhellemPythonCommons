@@ -24,14 +24,18 @@ class ConfigReader:
         with open(self.config_path, 'r') as file:
             return yaml.safe_load(file)
 
-    def _mask_passwords(self):
+    def _get_masked_config(self):
         """
-        Masks the password fields in the loaded configuration data by replacing their
-        values with '****'.
+        Returns a copy of the configuration data with masked passwords for display purposes.
+        
+        :return: A dictionary with masked passwords.
         """
-        for db, values in self.config_data.items():
+        masked_config = deepcopy(self.config_data)  # Create a deep copy to avoid modifying the original data
+        for db, values in masked_config.items():
             if "password" in values:
                 values["password"] = "****"
+        return masked_config
+
 
     def get_database_config(self, db_name):
         """
@@ -48,4 +52,4 @@ class ConfigReader:
         """
         Custom string representation of the object, showing the masked configuration data.
         """
-        return f"ConfigReader({self.config_data})"
+        return f"ConfigReader({self._get_masked_config()})"
