@@ -47,7 +47,13 @@ class ConfigReader:
         if db_name not in self.config_data:
             raise ValueError(f"Database configuration for '{db_name}' not found in the config file.")
         return self.config_data[db_name]
-
+    
+    def __str__(self):
+        """
+        Custom string representation of the object for printing, showing the masked configuration data.
+        """
+        return f"ConfigReader({self._get_masked_config()})"
+    
     def __repr__(self):
         """
         Custom string representation of the object, showing the masked configuration data.
